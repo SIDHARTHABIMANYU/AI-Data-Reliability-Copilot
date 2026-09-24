@@ -6,7 +6,7 @@ class Settings(BaseSettings):
     AWS_REGION: str
     BEDROCK_MODEL_ID: str
     AWS_BEARER_TOKEN_BEDROCK: str
-
+    PINECONE_API_KEY: str
     class Config:
         env_file = ".env"
 
