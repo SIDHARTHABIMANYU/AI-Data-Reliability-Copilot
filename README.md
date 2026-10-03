@@ -1,42 +1,93 @@
-# Business-AI
+# AI Data Reliability Copilot
 
-> A GenAI business assistant, currently in progress, built with FastAPI, AWS Bedrock, LangChain, Pinecone, and Retrieval-Augmented Generation (RAG).
+> A production-style AI and data engineering system for detecting, investigating, and recovering retail data pipeline failures.
 
-Business-AI is an AI-powered business assistant designed to answer business-related questions using a controlled knowledge base instead of relying only on the language model's internal knowledge.
+AI Data Reliability Copilot is a business-focused data reliability platform designed for a retail environment where daily sales, inventory, and supplier data feed business dashboards.
 
-The project started as a basic AWS Bedrock chatbot and has evolved through multiple engineering stages into a structured RAG application with FastAPI, Pinecone vector search, LangChain, semantic retrieval, relevance filtering, source attribution, and automated tests.
+The project combines modern data engineering with Generative AI to help data engineers understand broken pipelines, investigate data quality issues, identify business impact, and safely propose recovery actions.
+
+The project started as a basic AWS Bedrock business assistant and evolved through multiple engineering stages into a data reliability system combining data pipelines, RAG, vector search, LLMs, and eventually agentic workflows with human approval.
+
+---
 
 ## Project Evolution
 
-- V1: Basic Bedrock chatbot
-- V2: Production-style GenAI API
-- V3: RAG with Pinecone and LangChain
+### V1 — Basic GenAI Chatbot
+- AWS Bedrock
+- Claude
+- Streamlit
+- FastAPI
 
-## Architecture
+### V2 — Production-style GenAI Application
+- Structured FastAPI architecture
+- Pydantic schemas
+- Configuration management
+- Error handling
+- Logging
+- Health endpoints
+- Conversation handling
 
-User query → FastAPI backend → LangChain retrieval → Pinecone (semantic search over the knowledge base) → AWS Bedrock (grounded answer generation) → response with sources
+### V3 — RAG Pipeline
+- LangChain
+- Pinecone
+- HuggingFace embeddings
+- Semantic retrieval
+- Relevance filtering
+- Source attribution
+- Automated RAG tests
 
-## Tech Stack
+### V4 — Data Foundation
+- Synthetic retail datasets
+- PostgreSQL
+- SQLAlchemy
+- Data contracts
+- Retail ingestion pipeline
+- S3 integration
+- Bronze data layer
+- Pipeline execution metadata
 
-| Layer | Technology |
-|---|---|
-| Backend | Python, FastAPI, Pydantic |
-| LLM | AWS Bedrock |
-| Orchestration | LangChain |
-| Vector Database | Pinecone |
-| Testing | Pytest |
+### V5 — Medallion Data Pipeline
+- Bronze → Silver → Gold
+- Data validation
+- Deduplication
+- Standardization
+- Data transformation
+- Business-ready datasets
 
-## Key Features
+### Future Stages
+- Data quality framework
+- Data lineage
+- Statistical anomaly detection
+- AI incident investigation
+- Repair proposals
+- LangGraph orchestration
+- MCP tools
+- Human approval workflows
+- Dashboard
+- Evaluation and observability
+- Docker and AWS deployment
 
-- Answers grounded in a controlled knowledge base instead of the model's internal knowledge
-- Semantic retrieval with relevance filtering
-- Source attribution on responses
-- Automated tests
+---
 
-## Setup
+# Business Problem
 
-Clone the repo, install dependencies from requirements.txt, add your AWS Bedrock credentials and Pinecone API key to a local .env file (never commit it), then start the FastAPI backend from the backend folder.
+Retail businesses receive data from multiple sources every day:
 
-## Status
+- Sales systems
+- Inventory systems
+- Suppliers
 
-Actively in development.
+A small data problem can affect business reporting.
+
+For example:
+
+```text
+Supplier changes a column
+        ↓
+Pipeline validation fails
+        ↓
+Silver data is affected
+        ↓
+Gold revenue metric becomes incomplete
+        ↓
+Dashboard shows incorrect information
