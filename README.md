@@ -2,92 +2,191 @@
 
 > A production-style AI and data engineering system for detecting, investigating, and recovering retail data pipeline failures.
 
-AI Data Reliability Copilot is a business-focused data reliability platform designed for a retail environment where daily sales, inventory, and supplier data feed business dashboards.
+AI Data Reliability Copilot is a retail-focused data reliability platform that helps data engineers detect pipeline failures, investigate data quality issues, understand downstream impact, and propose safe remediation actions.
 
-The project combines modern data engineering with Generative AI to help data engineers understand broken pipelines, investigate data quality issues, identify business impact, and safely propose recovery actions.
+The project evolved from an AWS Bedrock GenAI chatbot into a data engineering + AI reliability system.
 
-The project started as a basic AWS Bedrock business assistant and evolved through multiple engineering stages into a data reliability system combining data pipelines, RAG, vector search, LLMs, and eventually agentic workflows with human approval.
+---
+
+## Architecture
+
+```text
+Retail Data
+    ↓
+AWS S3 Bronze
+    ↓
+Silver
+    ↓
+Gold
+    ↓
+Data Quality + Lineage
+    ↓
+Incident Detection
+    ↓
+AI Investigation
+    ↓
+AI Remediation
+    ↓
+Human Approval
+```
 
 ---
 
 ## Project Evolution
 
-### V1 — Basic GenAI Chatbot
-- AWS Bedrock
-- Claude
-- Streamlit
-- FastAPI
+| Version | Focus | Status |
+|---|---|---|
+| V1 | AWS Bedrock + Claude | ✅ |
+| V2 | Production FastAPI Architecture | ✅ |
+| V3 | RAG + Pinecone + LangChain | ✅ |
+| V4 | Retail Data Foundation + S3 + PostgreSQL | ✅ |
+| V5 | Bronze → Silver → Gold Pipeline | ✅ |
+| V6 | Data Quality + Lineage + AI Investigation | ✅ |
+| V7 | ML Anomaly Detection | 🚧 |
+| V8 | AI Data Reliability Copilot | 🚧 |
+| V9 | LangGraph | 🚧 |
+| V10 | MCP + Human-in-the-Loop | 🚧 |
+| V11 | Dashboard + Authentication | 🚧 |
+| V12 | Evaluation + Observability | 🚧 |
+| V13 | Docker + AWS + CI/CD | 🚧 |
 
-### V2 — Production-style GenAI Application
-- Structured FastAPI architecture
-- Pydantic schemas
-- Configuration management
-- Error handling
-- Logging
-- Health endpoints
-- Conversation handling
+---
 
-### V3 — RAG Pipeline
+## Current Capabilities
+
+### Data Engineering
+
+- Synthetic retail sales, inventory, and supplier datasets
+- AWS S3 data lake
+- Bronze → Silver → Gold architecture
+- PostgreSQL + SQLAlchemy
+- Data contracts
+- Schema validation
+- Deduplication and standardization
+- Data quality tracking
+- Pipeline run tracking
+
+### Reliability
+
+- Incident management
+- Failure detection
+- Evidence collection
+- Data lineage
+- Downstream business impact tracking
+
+### AI
+
+- AWS Bedrock + Claude
 - LangChain
+- AI-powered incident investigation
+- Structured root-cause analysis
+- AI remediation suggestions
+- Human approval workflow
+
+### RAG
+
 - Pinecone
 - HuggingFace embeddings
 - Semantic retrieval
 - Relevance filtering
 - Source attribution
-- Automated RAG tests
-
-### V4 — Data Foundation
-- Synthetic retail datasets
-- PostgreSQL
-- SQLAlchemy
-- Data contracts
-- Retail ingestion pipeline
-- S3 integration
-- Bronze data layer
-- Pipeline execution metadata
-
-### V5 — Medallion Data Pipeline
-- Bronze → Silver → Gold
-- Data validation
-- Deduplication
-- Standardization
-- Data transformation
-- Business-ready datasets
-
-### Future Stages
-- Data quality framework
-- Data lineage
-- Statistical anomaly detection
-- AI incident investigation
-- Repair proposals
-- LangGraph orchestration
-- MCP tools
-- Human approval workflows
-- Dashboard
-- Evaluation and observability
-- Docker and AWS deployment
 
 ---
 
-# Business Problem
+## Example Failure
 
-Retail businesses receive data from multiple sources every day:
-
-- Sales systems
-- Inventory systems
-- Suppliers
-
-A small data problem can affect business reporting.
-
-For example:
+A source system changes:
 
 ```text
-Supplier changes a column
-        ↓
-Pipeline validation fails
-        ↓
-Silver data is affected
-        ↓
-Gold revenue metric becomes incomplete
-        ↓
-Dashboard shows incorrect information
+sales_amount → net_amount
+```
+
+The system detects the schema mismatch:
+
+```text
+Schema Validation
+      ↓
+Pipeline Failure
+      ↓
+Incident Created
+      ↓
+Evidence Collected
+      ↓
+AI Investigation
+      ↓
+Remediation Proposal
+      ↓
+Human Approval
+```
+
+The AI does not directly modify production data. Proposed changes require human review.
+
+---
+
+## Technology Stack
+
+**Backend:** Python, FastAPI, Pydantic, SQLAlchemy, PostgreSQL
+
+**Data:** Pandas, AWS S3, Bronze/Silver/Gold
+
+**AI:** AWS Bedrock, Claude, LangChain
+
+**RAG:** Pinecone, HuggingFace Embeddings
+
+**Frontend:** Streamlit
+
+**Testing:** Pytest
+
+---
+
+## Project Structure
+
+```text
+AI-Data-Reliability-Copilot/
+├── backend/
+│   ├── config/
+│   ├── db/
+│   ├── routers/
+│   ├── schemas/
+│   ├── services/
+│   └── main.py
+├── data/
+├── frontend/
+├── knowledge_base/
+├── scripts/
+├── tests/
+├── requirements.txt
+└── README.md
+```
+
+---
+
+## Roadmap
+
+The project is being developed incrementally, introducing new technologies only when they solve a real engineering requirement.
+
+```text
+V1 → Bedrock
+V2 → Production GenAI
+V3 → RAG
+V4 → Data Foundation
+V5 → Medallion Pipeline
+V6 → Data Quality + Lineage
+V7 → ML Anomaly Detection
+V8 → AI Reliability Copilot
+V9 → LangGraph
+V10 → MCP + Human Approval
+V11 → Dashboard + Authentication
+V12 → Evaluation + Observability
+V13 → Docker + AWS + CI/CD
+```
+
+---
+
+## Goal
+
+Build a production-style AI Data Reliability platform that combines:
+
+**Data Engineering + ML + GenAI + Agentic AI**
+
+to help engineering teams detect, investigate, and safely recover data pipeline failures.
