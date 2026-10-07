@@ -36,13 +36,13 @@ Human Approval
 
 | Version | Focus | Status |
 |---|---|---|
-| V1 | AWS Bedrock + Claude | ✅ |
-| V2 | Production FastAPI Architecture | ✅ |
-| V3 | RAG + Pinecone + LangChain | ✅ |
-| V4 | Retail Data Foundation + S3 + PostgreSQL | ✅ |
-| V5 | Bronze → Silver → Gold Pipeline | ✅ |
-| V6 | Data Quality + Lineage + AI Investigation | ✅ |
-| V7 | ML Anomaly Detection | 🚧 |
+| V1 | AWS Bedrock + Claude
+| V2 | Production FastAPI Architecture 
+| V3 | RAG + Pinecone + LangChain 
+| V4 | Retail Data Foundation + S3 + PostgreSQL 
+| V5 | Bronze → Silver → Gold Pipeline 
+| V6 | Data Quality + Lineage + AI Investigation 
+| V7 | ML Anomaly Detection 
 | V8 | AI Data Reliability Copilot | 🚧 |
 | V9 | LangGraph | 🚧 |
 | V10 | MCP + Human-in-the-Loop | 🚧 |
@@ -73,6 +73,17 @@ Human Approval
 - Evidence collection
 - Data lineage
 - Downstream business impact tracking
+
+### ML Anomaly Detection
+
+- Rolling z-score anomaly detection
+- Leakage-free historical baselines
+- Isolation Forest detection
+- Statistical + ML anomaly confirmation
+- PostgreSQL anomaly result storage
+- Anomaly-to-incident workflow
+- Controlled anomaly scenario testing
+- Detection agreement evaluation
 
 ### AI
 
