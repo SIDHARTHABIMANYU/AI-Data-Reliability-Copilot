@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Date, DateTime
+from sqlalchemy import Column, Integer, String, Date, DateTime,Numeric
 from backend.db.database import Base
 
 
@@ -50,3 +50,46 @@ class RemediationAction(Base):
     approved_by = Column(String(100))
     approved_at = Column(DateTime)
     created_at = Column(DateTime, nullable=False)
+
+class AnomalyResult(Base):
+    __tablename__ = "anomaly_results"
+
+    anomaly_id = Column(Integer, primary_key=True, index=True)
+
+    transaction_date = Column(Date, nullable=False)
+
+    store_id = Column(
+        String(50),
+        nullable=False
+    )
+
+    total_revenue = Column(
+        Numeric(15, 2)
+    )
+
+    total_transactions = Column(
+        Integer
+    )
+
+    total_quantity = Column(
+        Integer
+    )
+
+    anomaly_score = Column(
+        Numeric(10, 6)
+    )
+
+    anomaly_status = Column(
+        String(20),
+        nullable=False
+    )
+
+    detection_method = Column(
+        String(50),
+        nullable=False
+    )
+
+    detected_at = Column(
+        DateTime,
+        nullable=False
+    )

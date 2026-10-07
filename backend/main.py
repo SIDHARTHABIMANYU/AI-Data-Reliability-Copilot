@@ -7,6 +7,7 @@ from backend.routers import investigation
 from backend.routers import remediation
 from backend.routers import remediation_approval
 from backend.routers import dashboard
+from backend.routers import anomalies
 
 app = FastAPI(
     title="Business Idea Assistant API",
@@ -31,6 +32,7 @@ app.include_router(remediation_approval.router)
 
 app.include_router(dashboard.router)
 
+app.include_router(anomalies.router)
 @app.get("/")
 def root():
     return {
