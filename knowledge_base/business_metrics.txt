@@ -1,0 +1,27 @@
+Retail Business Metrics
+
+Daily Revenue
+
+Daily revenue is calculated from the sales dataset by aggregating sales_amount by transaction date and store.
+
+Transaction Count
+
+Transaction count represents the number of sales transactions recorded for a store and date.
+
+Sales Quantity
+
+Sales quantity represents the total quantity of products sold.
+
+Stock Availability
+
+Stock availability is derived from inventory records and indicates whether products are available for sale.
+
+Supplier Performance
+
+Supplier performance is derived from supplier delivery records and measures delivered quantities and supplier-related operational metrics.
+
+A failure in the sales pipeline can affect daily revenue, transaction count, and sales quantity dashboards.
+
+A failure in the inventory pipeline can affect stock availability reporting.
+
+A failure in the supplier pipeline can affect supplier performance reporting.

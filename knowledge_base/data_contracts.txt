@@ -1,0 +1,41 @@
+Retail Data Contracts
+
+Sales Dataset
+
+Required columns:
+transaction_id
+transaction_date
+store_id
+product_id
+quantity
+sales_amount
+
+Business meaning:
+sales_amount represents the recorded sales value of a transaction.
+
+Inventory Dataset
+
+Required columns:
+inventory_date
+store_id
+product_id
+stock_quantity
+
+Business meaning:
+stock_quantity represents the available inventory quantity for a store and product on a given date.
+
+Supplier Dataset
+
+Required columns:
+supplier_id
+supplier_name
+product_id
+delivery_date
+quantity_delivered
+
+Business meaning:
+quantity_delivered represents the quantity delivered by a supplier.
+
+Schema changes must be investigated before automatically modifying downstream transformations.
+
+A renamed column must not automatically be assumed to have the same business meaning as the previous column.

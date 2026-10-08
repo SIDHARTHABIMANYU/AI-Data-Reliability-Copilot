@@ -1,0 +1,46 @@
+Retail Incident Procedures
+
+Incident Investigation
+
+When an incident is created:
+
+1. Identify the affected dataset and file.
+2. Identify the incident type and severity.
+3. Review the latest pipeline run.
+4. Review data quality results.
+5. Review anomaly detection results when applicable.
+6. Review upstream and downstream lineage.
+7. Identify affected business metrics.
+8. Determine the most likely root cause.
+9. Record supporting evidence.
+10. Recommend the safest next action.
+
+Incident Severity
+
+HIGH:
+The incident significantly affects critical business reporting or production data.
+
+MEDIUM:
+The incident affects a business dataset or metric but does not indicate immediate critical impact.
+
+LOW:
+The incident has limited impact and does not significantly affect business reporting.
+
+Evidence Requirements
+
+AI recommendations should be based on available evidence.
+
+Evidence may include:
+
+- Pipeline run status
+- Row counts
+- Schema validation results
+- Data quality results
+- Anomaly scores
+- Historical baselines
+- Dataset contracts
+- Pipeline runbooks
+- Data lineage
+- Business metric definitions
+
+The AI must clearly identify when evidence is insufficient to determine a root cause.

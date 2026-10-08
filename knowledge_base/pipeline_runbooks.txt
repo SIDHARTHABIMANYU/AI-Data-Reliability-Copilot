@@ -1,0 +1,45 @@
+Retail Pipeline Runbooks
+
+Schema Change
+
+When a schema validation failure occurs:
+
+1. Compare the expected schema with the incoming schema.
+2. Identify added, removed, or renamed columns.
+3. Inspect sample values.
+4. Check the business definition of the affected field.
+5. Determine downstream dependencies.
+6. Propose a mapping only when evidence supports it.
+7. Validate the proposed transformation before production use.
+
+Duplicate Transactions
+
+When duplicate records are detected:
+
+1. Identify duplicate transaction identifiers.
+2. Determine the duplicate count.
+3. Check whether duplicates came from repeated ingestion.
+4. Remove duplicates only according to the dataset contract.
+5. Validate row counts after remediation.
+
+Missing Data
+
+When expected files are missing:
+
+1. Identify the missing dataset and date.
+2. Check the latest successful pipeline run.
+3. Check upstream delivery status.
+4. Determine affected downstream metrics.
+5. Escalate when the source data cannot be recovered automatically.
+
+Anomaly Detection
+
+When an ML or statistical anomaly is detected:
+
+1. Identify the affected dataset, store, and date.
+2. Compare the metric with historical baselines.
+3. Check statistical anomaly evidence.
+4. Check ML anomaly evidence.
+5. Review related pipeline runs and data quality results.
+6. Determine whether downstream business metrics are affected.
+7. Create or update an incident when the anomaly is confirmed.

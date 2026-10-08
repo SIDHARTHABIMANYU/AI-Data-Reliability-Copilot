@@ -1,0 +1,49 @@
+Retail Remediation Guidelines
+
+General Rule
+
+AI-generated remediation suggestions must be treated as recommendations.
+
+The AI must not assume that a proposed change is safe without supporting evidence.
+
+Schema Change
+
+If a column is renamed:
+
+1. Compare old and new schemas.
+2. Inspect sample values.
+3. Compare business definitions.
+4. Check downstream transformations.
+5. Propose a mapping only when the evidence supports equivalence.
+6. Validate the proposed transformation before production use.
+
+Duplicate Data
+
+For duplicate transactions:
+
+1. Identify duplicate transaction identifiers.
+2. Determine whether duplicates represent repeated ingestion.
+3. Confirm the dataset contract.
+4. Remove duplicates according to the defined business rule.
+5. Validate the resulting row count.
+
+Missing Data
+
+For missing files:
+
+1. Confirm the expected file.
+2. Check the latest successful ingestion.
+3. Check upstream availability.
+4. Determine affected downstream metrics.
+5. Do not fabricate missing data.
+6. Escalate when the source cannot be recovered.
+
+Anomaly
+
+For anomalous business metrics:
+
+1. Verify the anomaly using statistical evidence.
+2. Compare against historical behavior.
+3. Check for related pipeline or data-quality failures.
+4. Determine whether the anomaly is a genuine business event or a data issue.
+5. Avoid modifying data solely because an anomaly was detected.
