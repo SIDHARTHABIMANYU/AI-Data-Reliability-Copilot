@@ -1,12 +1,8 @@
 # AI Data Reliability Copilot
 
-> A production-style AI and data engineering system for detecting, investigating, and recovering retail data pipeline failures.
+> AI-powered data reliability platform for detecting, investigating, and safely recovering retail data pipeline failures.
 
-AI Data Reliability Copilot is a retail-focused data reliability platform that helps data engineers detect pipeline failures, investigate data quality issues, understand downstream impact, and propose safe remediation actions.
-
-The project evolved from an AWS Bedrock GenAI chatbot into a data engineering + AI reliability system.
-
----
+AI Data Reliability Copilot combines **Data Engineering, Machine Learning, RAG, and GenAI** to help data engineers identify broken pipelines, understand root causes, assess business impact, and receive safe remediation recommendations.
 
 ## Architecture
 
@@ -15,187 +11,125 @@ Retail Data
     ↓
 AWS S3 Bronze
     ↓
-Silver
-    ↓
-Gold
+Silver → Gold
     ↓
 Data Quality + Lineage
     ↓
+Anomaly Detection
+    ↓
 Incident Detection
     ↓
-AI Investigation
+Evidence + RAG Context
     ↓
-AI Remediation
+AI Reliability Copilot
+    ↓
+AWS Bedrock + Claude
+    ↓
+Root Cause + Impact + Recommendation
     ↓
 Human Approval
 ```
 
----
-## Project Evolution
+## Key Capabilities
 
-| Version | Focus | Status |
-|---|---|---|
-| V1 | AWS Bedrock + Claude | ✅ |
-| V2 | Production FastAPI Architecture | ✅ |
-| V3 | RAG + Pinecone + LangChain | ✅ |
-| V4 | Retail Data Foundation + S3 + PostgreSQL | ✅ |
-| V5 | Bronze → Silver → Gold Pipeline | ✅ |
-| V6 | Data Quality + Lineage + AI Investigation | ✅ |
-| V7 | ML Anomaly Detection | ✅ |
-| V8 | AI Data Reliability Copilot | 🚧 |
-| V9 | LangGraph | 🚧 |
-| V10 | MCP + Human-in-the-Loop | 🚧 |
-| V11 | Dashboard + Authentication | 🚧 |
-| V12 | Evaluation + Observability | 🚧 |
-| V13 | Docker + AWS + CI/CD | 🚧 |
----
+- **Data Engineering:** Bronze → Silver → Gold retail data pipeline
+- **Data Quality:** Schema validation, duplicate detection, standardization, and quarantine
+- **Data Reliability:** Incident detection, evidence collection, lineage, and impact analysis
+- **ML Detection:** Rolling Z-score and Isolation Forest anomaly detection
+- **RAG:** Pinecone + HuggingFace embeddings for reliability knowledge retrieval
+- **GenAI:** AWS Bedrock + Claude for incident investigation
+- **Remediation:** AI-generated recommendations with human review
+- **API:** FastAPI backend with PostgreSQL
+- **Testing:** Pytest automated test suite
 
-## Current Capabilities
+## AI Investigation Flow
 
-### Data Engineering
+The V8 Reliability Copilot uses:
 
-- Synthetic retail sales, inventory, and supplier datasets
-- AWS S3 data lake
-- Bronze → Silver → Gold architecture
-- PostgreSQL + SQLAlchemy
-- Data contracts
-- Schema validation
-- Deduplication and standardization
-- Data quality tracking
-- Pipeline run tracking
+```text
+Incident
+   ↓
+Evidence Collection
+   ↓
+Reliability RAG
+   ↓
+Context Construction
+   ↓
+AWS Bedrock + Claude
+   ↓
+Structured Investigation
+```
 
-### Reliability
+The Copilot returns:
 
-- Incident management
-- Failure detection
-- Evidence collection
-- Data lineage
-- Downstream business impact tracking
+- Root cause
+- Supporting evidence
+- Business impact
+- Recommended action
+- Confidence level
 
-### ML Anomaly Detection
+The AI is designed not to invent evidence or assume that renamed fields have the same business meaning.
 
-- Rolling z-score anomaly detection
-- Leakage-free historical baselines
-- Isolation Forest detection
-- Statistical + ML anomaly confirmation
-- PostgreSQL anomaly result storage
-- Anomaly-to-incident workflow
-- Controlled anomaly scenario testing
-- Detection agreement evaluation
+## Example
 
-### AI
-
-- AWS Bedrock + Claude
-- LangChain
-- AI-powered incident investigation
-- Structured root-cause analysis
-- AI remediation suggestions
-- Human approval workflow
-
-### RAG
-
-- Pinecone
-- HuggingFace embeddings
-- Semantic retrieval
-- Relevance filtering
-- Source attribution
-
----
-
-## Example Failure
-
-A source system changes:
+If an upstream source changes:
 
 ```text
 sales_amount → net_amount
 ```
 
-The system detects the schema mismatch:
+the system detects the schema mismatch, creates an incident, collects evidence, retrieves relevant reliability knowledge, and asks Claude to investigate the issue.
 
-```text
-Schema Validation
-      ↓
-Pipeline Failure
-      ↓
-Incident Created
-      ↓
-Evidence Collected
-      ↓
-AI Investigation
-      ↓
-Remediation Proposal
-      ↓
-Human Approval
-```
+The system recommends validating the business meaning before applying any data mapping.
 
-The AI does not directly modify production data. Proposed changes require human review.
+## Tech Stack
 
----
-
-## Technology Stack
-
-**Backend:** Python, FastAPI, Pydantic, SQLAlchemy, PostgreSQL
-
-**Data:** Pandas, AWS S3, Bronze/Silver/Gold
-
-**AI:** AWS Bedrock, Claude, LangChain
-
-**RAG:** Pinecone, HuggingFace Embeddings
-
-**Frontend:** Streamlit
-
-**Testing:** Pytest
-
----
+- **Backend:** Python, FastAPI, Pydantic, SQLAlchemy, PostgreSQL
+- **Data:** Pandas, AWS S3, Bronze/Silver/Gold
+- **ML:** Scikit-learn, Isolation Forest
+- **AI:** AWS Bedrock, Claude, LangChain
+- **RAG:** Pinecone, HuggingFace Embeddings
+- **Frontend:** Streamlit
+- **Testing:** Pytest
 
 ## Project Structure
 
 ```text
-AI-Data-Reliability-Copilot/
-├── backend/
-│   ├── config/
-│   ├── db/
-│   ├── routers/
-│   ├── schemas/
-│   ├── services/
-│   └── main.py
-├── data/
-├── frontend/
-├── knowledge_base/
-├── scripts/
+backend/
+├── config/
+├── db/
+├── routers/
+├── schemas/
+├── services/
 ├── tests/
-├── requirements.txt
-└── README.md
+└── main.py
+
+data/
+frontend/
+knowledge_base/
+scripts/
+requirements.txt
+README.md
 ```
 
----
+## Development Roadmap
 
-## Roadmap
-
-The project is being developed incrementally, introducing new technologies only when they solve a real engineering requirement.
-
-```text
-V1 → Bedrock
-V2 → Production GenAI
-V3 → RAG
-V4 → Data Foundation
-V5 → Medallion Pipeline
-V6 → Data Quality + Lineage
-V7 → ML Anomaly Detection
-V8 → AI Reliability Copilot
-V9 → LangGraph
-V10 → MCP + Human Approval
-V11 → Dashboard + Authentication
-V12 → Evaluation + Observability
-V13 → Docker + AWS + CI/CD
-```
-
----
+| Version | Milestone                    | Status |
+|---------|------------------------------|--------|
+| V1      | Bedrock                      | ✅     |
+| V2      | Production GenAI             | ✅     |
+| V3      | RAG                          | ✅     |
+| V4      | Data Foundation              | ✅     |
+| V5      | Medallion Pipeline           | ✅     |
+| V6      | Data Quality + Lineage       | ✅     |
+| V7      | ML Anomaly Detection         | ✅     |
+| V8      | AI Reliability Copilot       | ✅     |
+| V9      | LangGraph                    | 🚧     |
+| V10     | MCP + Human Approval         | 🚧     |
+| V11     | Dashboard + Authentication   | 🚧     |
+| V12     | Evaluation + Observability   | 🚧     |
+| V13     | Docker + AWS + CI/CD         | 🚧     |
 
 ## Goal
 
-Build a production-style AI Data Reliability platform that combines:
-
-**Data Engineering + ML + GenAI + Agentic AI**
-
-to help engineering teams detect, investigate, and safely recover data pipeline failures.
+Build a production-style AI platform that combines Data Engineering + ML + GenAI + Agentic AI to make business data more reliable and help engineering teams safely respond to pipeline failures.
