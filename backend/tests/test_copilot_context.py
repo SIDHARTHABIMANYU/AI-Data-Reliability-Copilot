@@ -1,50 +1,39 @@
-from backend.services import copilot_context_service
+
+from backend.services.reliability.nodes import (
+    retrieve_rag_node,
+)
 
 
-def test_build_copilot_context(monkeypatch):
+def test_retrieve_rag_context(monkeypatch):
     fake_evidence = {
         "incident": {
             "dataset": "sales",
-            "incident_type": "schema_mismatch",
+            "incident_type": "SCHEMA_CHANGE",
             "description": "sales_amount column is missing",
-        },
-        "pipeline_run": {
-            "run_id": 274,
-        },
+        }
     }
 
-    fake_reliability_context = [
-        "Schema changes should be reviewed before applying field mappings.",
-        "Confirm business meaning before repairing renamed columns.",
-    ]
+    fake_reliability_context = (
+        "Schema changes should be reviewed before mapping fields."
+    )
 
     captured_query = {}
-
-    def fake_collect_incident_evidence(incident_id):
-        assert incident_id == 1
-        return fake_evidence
 
     def fake_retrieve_reliability_context(query):
         captured_query["query"] = query
         return fake_reliability_context
 
-    monkeypatch.setattr(
-        copilot_context_service,
-        "collect_incident_evidence",
-        fake_collect_incident_evidence,
-    )
+    from backend.services.reliability import nodes
 
     monkeypatch.setattr(
-        copilot_context_service,
+        nodes,
         "retrieve_reliability_context",
         fake_retrieve_reliability_context,
     )
 
-    result = copilot_context_service.build_copilot_context(1)
+    result = retrieve_rag_node({"evidence": fake_evidence})
 
-    assert result["incident_evidence"] == fake_evidence
-    assert result["reliability_context"] == fake_reliability_context
-
+    assert result["rag_context"] == fake_reliability_context
     assert "Dataset: sales" in captured_query["query"]
-    assert "Incident type: schema_mismatch" in captured_query["query"]
+    assert "Incident type: SCHEMA_CHANGE" in captured_query["query"]
     assert "sales_amount column is missing" in captured_query["query"]

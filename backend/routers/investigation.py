@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 
 from backend.schemas.investigation_schema import InvestigationResponse
-from backend.services.ai_investigator_service import investigate_incident
+from backend.services.reliability.graph import run_reliability_graph
 
 
 router = APIRouter(
@@ -17,26 +17,40 @@ router = APIRouter(
 def get_incident_investigation(incident_id: int):
 
     try:
-        investigation = investigate_incident(incident_id)
+        result = run_reliability_graph(
+            incident_id
+        )
 
-        if "error" in investigation:
+        evidence = result.get(
+            "evidence",
+            {}
+        )
+
+        if "error" in evidence:
             raise HTTPException(
                 status_code=404,
-                detail=investigation["error"]
+                detail=evidence["error"]
             )
+
+        analysis = result.get(
+            "analysis",
+            {}
+        )
 
         return {
             "incident_id": incident_id,
-            **investigation
+            **analysis
         }
 
     except HTTPException:
         raise
 
-    except Exception as error:
-        print(f"Investigation error: {error}")
+    except Exception:
+       import traceback
 
-        raise HTTPException(
-            status_code=500,
-            detail="Unable to investigate incident."
-        )
+       traceback.print_exc()
+
+       raise HTTPException(
+          status_code=500,
+          detail="Unable to investigate incident."
+    )

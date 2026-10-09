@@ -7,7 +7,8 @@ EVALUATION_CASES = [
             "sales_amount",
             "net_amount",
         ],
-        "expected_confidence": "HIGH",
+        "incident_should_be_detected": True,
+        "root_cause_should_be_confirmed": False,
     },
     {
         "name": "duplicate_transactions",
@@ -16,7 +17,8 @@ EVALUATION_CASES = [
             "duplicate",
             "transaction",
         ],
-        "expected_confidence": "MEDIUM",
+        "incident_should_be_detected": True,
+        "root_cause_should_be_confirmed": False,
     },
     {
         "name": "missing_data",
@@ -25,7 +27,8 @@ EVALUATION_CASES = [
             "missing",
             "file",
         ],
-        "expected_confidence": "HIGH",
+        "incident_should_be_detected": True,
+        "root_cause_should_be_confirmed": False,
     },
     {
         "name": "revenue_anomaly",
@@ -34,6 +37,7 @@ EVALUATION_CASES = [
             "anomaly",
             "revenue",
         ],
-        "expected_confidence": "MEDIUM",
+        "incident_should_be_detected": True,
+        "root_cause_should_be_confirmed": False,
     },
 ]
