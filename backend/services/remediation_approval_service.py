@@ -1,14 +1,15 @@
+
 from datetime import datetime
 
 from backend.db.database import SessionLocal
 from backend.db.models import RemediationAction
 
+
 def create_pending_remediation(
     incident_id: int,
     proposed_change: str,
-    risk: str
+    risk: str,
 ) -> int:
-
     db = SessionLocal()
 
     try:
@@ -16,11 +17,9 @@ def create_pending_remediation(
             db.query(RemediationAction)
             .filter(
                 RemediationAction.incident_id == incident_id,
-                RemediationAction.status == "PENDING"
+                RemediationAction.status == "PENDING",
             )
-            .order_by(
-                RemediationAction.remediation_id.desc()
-            )
+            .order_by(RemediationAction.remediation_id.desc())
             .first()
         )
 
@@ -32,7 +31,7 @@ def create_pending_remediation(
             proposed_change=proposed_change,
             risk=risk,
             status="PENDING",
-            created_at=datetime.now()
+            created_at=datetime.now(),
         )
 
         db.add(remediation)
@@ -48,11 +47,11 @@ def create_pending_remediation(
     finally:
         db.close()
 
+
 def approve_remediation(
     remediation_id: int,
-    approved_by: str
+    approved_by: str,
 ) -> dict:
-
     db = SessionLocal()
 
     try:
@@ -61,6 +60,7 @@ def approve_remediation(
             .filter(
                 RemediationAction.remediation_id == remediation_id
             )
+            .with_for_update()
             .first()
         )
 
@@ -69,10 +69,7 @@ def approve_remediation(
 
         if remediation.status != "PENDING":
             return {
-                "error": (
-                    f"Remediation is already "
-                    f"{remediation.status}"
-                )
+                "error": f"Remediation is already {remediation.status}"
             }
 
         remediation.status = "APPROVED"
@@ -100,9 +97,8 @@ def approve_remediation(
 
 def reject_remediation(
     remediation_id: int,
-    rejected_by: str
+    rejected_by: str,
 ) -> dict:
-
     db = SessionLocal()
 
     try:
@@ -111,6 +107,7 @@ def reject_remediation(
             .filter(
                 RemediationAction.remediation_id == remediation_id
             )
+            .with_for_update()
             .first()
         )
 
@@ -119,15 +116,12 @@ def reject_remediation(
 
         if remediation.status != "PENDING":
             return {
-                "error": (
-                    f"Remediation is already "
-                    f"{remediation.status}"
-                )
+                "error": f"Remediation is already {remediation.status}"
             }
 
         remediation.status = "REJECTED"
-        remediation.approved_by = rejected_by
-        remediation.approved_at = datetime.now()
+        remediation.rejected_by = rejected_by
+        remediation.rejected_at = datetime.now()
 
         db.commit()
         db.refresh(remediation)
@@ -136,8 +130,8 @@ def reject_remediation(
             "remediation_id": remediation.remediation_id,
             "incident_id": remediation.incident_id,
             "status": remediation.status,
-            "approved_by": remediation.approved_by,
-            "approved_at": remediation.approved_at,
+            "rejected_by": remediation.rejected_by,
+            "rejected_at": remediation.rejected_at,
         }
 
     except Exception:

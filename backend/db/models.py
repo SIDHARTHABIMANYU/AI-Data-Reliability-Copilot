@@ -50,6 +50,8 @@ class RemediationAction(Base):
     approved_by = Column(String(100))
     approved_at = Column(DateTime)
     created_at = Column(DateTime, nullable=False)
+    rejected_by = Column(String(100))
+    rejected_at = Column(DateTime)
 
 class AnomalyResult(Base):
     __tablename__ = "anomaly_results"
