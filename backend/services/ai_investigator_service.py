@@ -9,6 +9,7 @@ from backend.services.evidence_service import collect_incident_evidence
 llm = ChatBedrockConverse(
     model=settings.BEDROCK_MODEL_ID,
     region_name=settings.AWS_REGION,
+    api_key=settings.AWS_BEARER_TOKEN_BEDROCK,
     max_tokens=1000,
     temperature=0.2,
 )

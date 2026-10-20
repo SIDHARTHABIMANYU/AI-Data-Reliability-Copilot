@@ -1,19 +1,14 @@
 import json
 
-from langchain_aws import ChatBedrockConverse
+from backend.services.llm_factory import get_llm
 
-from backend.config.settings import settings
+
 from backend.services.evidence_service import collect_incident_evidence
 from backend.services.remediation_approval_service import (
     create_pending_remediation
 )
 
-llm = ChatBedrockConverse(
-    model=settings.BEDROCK_MODEL_ID,
-    region_name=settings.AWS_REGION,
-    max_tokens=1000,
-    temperature=0.2,
-)
+llm = get_llm()
 
 
 def suggest_remediation(incident_id: int) -> dict:
@@ -85,10 +80,14 @@ Incident Evidence:
 
     try:
         remediation = json.loads(content)
-    except json.JSONDecodeError:
+    except json.JSONDecodeError as exc:
+        print("=== GEMINI REMEDIATION RAW RESPONSE ===")
+        print(repr(content))
+        print("=== REMEDIATION JSON PARSE ERROR ===")
+        print(f"{exc}; response length={len(content)}")
         raise ValueError(
             "AI returned an invalid JSON remediation response."
-        )
+    ) from exc
     remediation_id = create_pending_remediation(
         incident_id=incident_id,
         proposed_change=remediation["proposed_change"],

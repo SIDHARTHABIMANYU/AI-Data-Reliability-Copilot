@@ -1,7 +1,7 @@
 import json
 from typing import Any
 
-from langchain_aws import ChatBedrockConverse
+from backend.services.llm_factory import get_llm
 
 from backend.config.settings import settings
 from backend.services.evidence_service import collect_incident_evidence
@@ -12,12 +12,7 @@ from backend.services.reliability_rag_service import (
 from backend.services.reliability.state import ReliabilityState
 
 
-llm = ChatBedrockConverse(
-    model=settings.BEDROCK_MODEL_ID,
-    region_name=settings.AWS_REGION,
-    max_tokens=1000,
-    temperature=0.2,
-)
+llm = get_llm()
 
 
 SYSTEM_PROMPT = """
@@ -166,7 +161,14 @@ Investigate incident {incident_id}.
         )
         content = content.strip()
 
-    analysis = json.loads(content)
+    try:
+        analysis = json.loads(content)
+    except json.JSONDecodeError as exc:
+        print("=== GEMINI RAW RESPONSE ===")
+        print(repr(content))
+        print("=== JSON PARSE ERROR ===")
+        print(f"{exc}; response length={len(content)}")
+        raise
 
     return {
         "analysis": analysis
