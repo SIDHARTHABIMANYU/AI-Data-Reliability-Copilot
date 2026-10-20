@@ -73,31 +73,28 @@ The exact processing path depends on the incident and the backend services invol
 | Data and persistence | PostgreSQL, SQLAlchemy, AWS S3 |
 | Testing | Pytest and application-level endpoint checks |
 
-## Project Structure
-
 ```text
 BEDROCK/
-â”œâ”€â”€ backend/
-â”‚   â”œâ”€â”€ config/
-â”‚   â”œâ”€â”€ routers/
-â”‚   â”œâ”€â”€ schemas/
-â”‚   â”œâ”€â”€ services/
-â”‚   â”‚   â””â”€â”€ reliability/
-â”‚   â”œâ”€â”€ tests/
-â”‚   â””â”€â”€ main.py
-â”œâ”€â”€ data/
-â”œâ”€â”€ frontend/
-â”‚   â”œâ”€â”€ src/
-â”‚   â”œâ”€â”€ public/
-â”‚   â”œâ”€â”€ package.json
-â”‚   â”œâ”€â”€ vite.config.ts
-â”‚   â””â”€â”€ README.md
-â”œâ”€â”€ knowledge_base/
-â”œâ”€â”€ scripts/
-â”œâ”€â”€ requirements.txt
-â””â”€â”€ README.md
+├── backend/
+│   ├── config/
+│   ├── routers/
+│   ├── schemas/
+│   ├── services/
+│   │   └── reliability/
+│   ├── tests/
+│   └── main.py
+├── data/
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   ├── package.json
+│   ├── vite.config.ts
+│   └── README.md
+├── knowledge_base/
+├── scripts/
+├── requirements.txt
+└── README.md
 ```
-
 Some directories may contain additional project-specific modules. Refer to the repository for the current implementation.
 
 ## Prerequisites
@@ -139,7 +136,7 @@ LLM_PROVIDER=gemini
 GOOGLE_API_KEY=your_google_api_key
 GEMINI_MODEL_ID=gemini-2.5-flash
 
-AWS_REGION=us-east-1
+AWS_REGION=your_model_region
 BEDROCK_MODEL_ID=your_bedrock_model_id
 AWS_BEARER_TOKEN_BEDROCK=your_bedrock_token
 
